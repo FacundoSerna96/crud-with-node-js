@@ -42,12 +42,12 @@ $("#tabla").on("dblclick", "tr", function () {
 
 
 $("#buttonSearch").click(function(){
-  let search = $("#textBoxSearch").val()
+  let search : any = $("#textBoxSearch").val()
 
   if (search == ""){
     loadPageDB(1);
-  }else{
-    searchCustomerDB($("#textBoxSearch").val());
+  }else{ 
+    searchCustomerDB(search);
   }
 });
 
@@ -55,25 +55,25 @@ $("#buttonSearch").click(function(){
 //---------------------------------
 
 
-function loadAllCustomers(data){loadAllCustomersView(data)}
+function loadAllCustomers(data: any){loadAllCustomersView(data)}
   
-function loadCustomer(data){loadCustomerView(data)}
+function loadCustomer(data : any){loadCustomerView(data)}
   
-function loadNumPage(data){loadNumPageView(data);}
+function loadNumPage(data : any){loadNumPageView(data);}
 
-function setActualPage(actualPage){setActualPageView(actualPage);}
+function setActualPage(actualPage : number){setActualPageView(actualPage);}
 
-function loadPage(data){loadPageView(data);}
+function loadPage(data : any){loadPageView(data);}
   
-function loadCities(data){loadCitiesView(data)}
+function loadCities(data : any){loadCitiesView(data)}
   
-function loadCountries(data){loadCountriesView(data)}
+function loadCountries(data : any){loadCountriesView(data)}
   
 function saveCustomer(){
   if($("#id").val() == 0){
     createCustomer();
   } else{
-      updateCustomer();
+    updateCustomer();
   }
       
 }
@@ -107,7 +107,7 @@ function updateCustomer(){
   showFormCustomer();
 }
 
-function deleteCustomer(idCustomer){
+function deleteCustomer(){
   deleteCustomerDB();
   updateFormTable();
 }
@@ -120,4 +120,4 @@ function updateFormTable() {
 }
 
 
-function searchCustomer(data){searchCustomerView(data)}
+function searchCustomer(data: any){searchCustomerView(data)}

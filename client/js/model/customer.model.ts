@@ -1,5 +1,5 @@
 const baseURL = "http://localhost:8080/api";
-let idCustomer = 0;
+let idCustomer = "";
 let actualPage = 1;
 
 function loadAllCustomersDB(){
@@ -12,7 +12,7 @@ function loadAllCustomersDB(){
         .catch(error => console.log(error))
   }
 
-function loadCustomerDB(id){
+function loadCustomerDB(id: string){
     //peticion fetch ajax
     var url= 'http://localhost:8080/api/customer/' + id;
 
@@ -24,7 +24,7 @@ function loadCustomerDB(id){
         .catch(error => console.log(error))
 }
 
-function loadPageDB(myPage){
+function loadPageDB(myPage: number){
     //peticion fetch ajax
     var url= baseURL + "/customer/page/" + myPage;
 
@@ -69,7 +69,7 @@ function loadCountriesDB(){
         .catch(error => console.log(error))
 }
 
-function createCustomerDB(customer){
+async function createCustomerDB(customer: any){
     try {
         const res = fetch(`${baseURL}/customer`, {
           method: "post",
@@ -80,29 +80,28 @@ function createCustomerDB(customer){
           body: JSON.stringify(customer),
         });
     
-        if (!res.ok) {
-          const message = `An error has occured: ${res.status} - ${res.statusText}`;
+        if (!(await res).ok) {
+          const message = `An error has occured: ${(await res).status} - ${(await res).statusText}`;
           throw new Error(message);
         }
     
-        const data =  res.json();
+        const data =  (await res).json();
     
         const result = {
-          status: res.status + "-" + res.statusText,
+          status: (await res).status + "-" + (await res).statusText,
           headers: {
-            "Content-Type": res.headers.get("Content-Type"),
-            "Content-Length": res.headers.get("Content-Length"),
+            "Content-Type": (await res).headers.get("Content-Type"),
+            "Content-Length": (await res).headers.get("Content-Length"),
           },
           data: data,
         };
     
-        console.log(result);
-      } catch (err) {
+      } catch (err: any) {
         console.log(err.message);
       }
 }
 
-function updateCustomerDB(update){
+async function updateCustomerDB(update: any){
     try {
         const res = fetch(`${baseURL}/customer/${idCustomer}`, {
           method: "put",
@@ -113,47 +112,45 @@ function updateCustomerDB(update){
           body: JSON.stringify(update),
         });
     
-        if (!res.ok) {
-          const message = `An error has occured: ${res.status} - ${res.statusText}`;
+        if (!(await res).ok) {
+          const message = `An error has occured: ${(await res).status} - ${(await res).statusText}`;
           throw new Error(message);
         }
     
-        const data = res.json();
+        const data = (await res).json();
     
         const result = {
-          status: res.status + "-" + res.statusText,
-          headers: { "Content-Type": res.headers.get("Content-Type") },
+          status: (await res).status + "-" + (await res).statusText,
+          headers: { "Content-Type": (await res).headers.get("Content-Type") },
           data: data,
         };
     
-        console.log(result);
-      } catch (err) {
+      } catch (err : any) {
         console.log(err.message);
       }
 }
 
-function deleteCustomerDB(){
+async function deleteCustomerDB(){
     try {
         const res = fetch(`${baseURL}/customer/${idCustomer}`, { method: "delete" });
 
-        const data = res.json();
+        const data = (await res).json();
 
         const result = {
-        status: res.status + "-" + res.statusText,
-        headers: { "Content-Type": res.headers.get("Content-Type") },
+        status: (await res).status + "-" + (await res).statusText,
+        headers: { "Content-Type": (await res).headers.get("Content-Type") },
         data: data,
         };
 
-        console.log(result);
-    } catch (err) {
+    } catch (err : any) {
         console.log(err.message);
     }
 }
 
 
-function searchCustomerDB(name){
+function searchCustomerDB(name: any){
     //peticion fetch ajax
-  var url= baseURL + "/customer/?title=" + name
+  var url= baseURL + "/customer/?title=" + name;
 
   fetch(url)
       .then(response => response.json())

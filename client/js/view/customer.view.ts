@@ -6,11 +6,6 @@ $(document).ready(function(){
 });
   
 
-function deletePage(){
-    body = ''
-    document.getElementById("tabla").innerHTML = body;
-}
-
 function showFormCustomer(){
     if ($('#customerForm').is(':visible')) {
         $('#customerForm').slideUp();
@@ -20,7 +15,7 @@ function showFormCustomer(){
 }
 
 
-function loadAllCustomersView(data){
+function loadAllCustomersView(data : any){
     let body = ''
   
     for(let i=0; i<data.length; i++){
@@ -36,10 +31,10 @@ function loadAllCustomersView(data){
                 </tr>`
                 //<td><button type="button" class="btn btn-primary">Editar</button></td>
     }
-    document.getElementById('tabla').innerHTML = body;
+    document.getElementById('tabla')!.innerHTML = body;
 }
 
-function loadCustomerView(data){
+function loadCustomerView(data : any){
     $("#id").val(data.customerNumber);
     $("#textBoxName").val(data.customerName);
     $("#textBoxPhone").val(data.phone);
@@ -50,14 +45,12 @@ function loadCustomerView(data){
     $("#buttonDeleteCustomer").show();;
 }
 
-function loadPageView(data){
-     
+function loadPageView(data : any){
      //borramos pagina anterior
      deletePage();
   
      let body = ''
      
-
     for(let i=0; i<data.length; i++){
         
         
@@ -72,10 +65,10 @@ function loadPageView(data){
                 //<td><button type="button" class="btn btn-primary">Editar</button></td>
     }
 
-     document.getElementById('tabla').innerHTML = body;
+     document.getElementById('tabla')!.innerHTML = body;
 }
 
-function loadNumPageView(data){
+function loadNumPageView(data : any){
     let pages = data["count(*)"]/10;
   
     //agrega una pagina mas si 
@@ -98,32 +91,32 @@ function loadNumPageView(data){
             <a class="page-link" href="#" >Next</a>
             </li>`
 
-    document.getElementById('pageList').innerHTML = body;
+    document.getElementById('pageList')!.innerHTML = body;
   
 }
 
-function setActualPageView(actualPage){
-    $("#" + actualPage).css("padding : 20%;");  
+function setActualPageView(actualPage : number){
+    //$("#" + actualPage).css("");  
 }
 
-function loadCitiesView (data) {  
-    body = '';
+function loadCitiesView (data : any) {  
+    let body : string = "";
   
     for (let i=0; i< data.length; i++){
         body += `<option value="${data[i].city}">${data[i].city}</option>`;
     }
 
-    document.getElementById('comboBoxCity').innerHTML = body;
+    document.getElementById('comboBoxCity')!.innerHTML = body;
 }
 
-function loadCountriesView(data){
-    body = '';
+function loadCountriesView(data : any){
+    let body : string = "";
   
     for (let i=0; i< data.length; i++){
         body += `<option value="${data[i].country}">${data[i].country}</option>`;
     }
 
-    document.getElementById('comboBoxCountry').innerHTML = body;
+    document.getElementById('comboBoxCountry')!.innerHTML = body;
 }
 
 function createCustomerView(){
@@ -141,6 +134,7 @@ function createCustomerView(){
         addressLine1 : addressLine1
       };
 
+    console.log(customer);
     return customer;
 }
 
@@ -166,13 +160,12 @@ function updateCustomerView(){
 }
 
 function deletePage(){
-    body = ''
-    document.getElementById("tabla").innerHTML = body;
+    let body : string = '';
+    document.getElementById("tabla")!.innerHTML = body;
 }
 
 
 function deleteFormCustomer(){{
-    idCustomer = 0;
     $("#textBoxName").val("");
     $("#textBoxPhone").val("");
     $("#textBoxAddress").val("");
@@ -184,7 +177,7 @@ function alertSuccess(){
     $(".alert-success").show();   
 }
 
-function showAlert(type){
+function showAlert(type : string){
     switch(type){
       case "success":
         $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
@@ -208,7 +201,7 @@ function showModal() {
     $("#modal").show;
 }
 
-function searchCustomerView(data){
+function searchCustomerView(data : any){
     let body = ''
 
     for(let i=0; i<data.length; i++){
@@ -223,5 +216,5 @@ function searchCustomerView(data){
                     
                 </tr>`
     }
-    document.getElementById('tabla').innerHTML = body;
+    document.getElementById('tabla')!.innerHTML = body;
 }
